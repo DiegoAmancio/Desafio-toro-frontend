@@ -4,7 +4,7 @@ import { CardList } from '@/components/organisms/o-cards-list';
 import { formatValue } from '@/utils/coins';
 import { Box } from '@mui/material';
 
-export const CarteiraTemplate = ({
+export function CarteiraTemplate({
   checkingAccountAmount,
   consolidated,
   positions,
@@ -12,29 +12,33 @@ export const CarteiraTemplate = ({
   checkingAccountAmount: number;
   consolidated: number;
   positions: IStocksCard[];
-}) => (
-  <Box
-    display="flex"
-    flexDirection="column"
-    alignItems="center"
-    padding="6rem"
-    minHeight="100vh"
-  >
+}) {
+  return (
     <Box
       display="flex"
-      width="450px"
-      justifyContent="space-between"
-      marginBottom={5}
+      flexDirection="column"
+      alignItems="center"
+      padding="2rem 1rem"
+      minHeight="100vh"
     >
-      <TitleValueCard
-        title="Saldo"
-        value={formatValue(checkingAccountAmount)}
-      />
-      <TitleValueCard
-        title="Patrimônio sumarizado"
-        value={formatValue(consolidated)}
-      />
+      <Box
+        display="flex"
+        width="100%"
+        maxWidth="450px"
+        padding="0rem 1rem"
+        justifyContent="space-between"
+        marginBottom={5}
+      >
+        <TitleValueCard
+          title="Saldo"
+          value={formatValue(checkingAccountAmount)}
+        />
+        <TitleValueCard
+          title="Patrimônio sumarizado"
+          value={formatValue(consolidated)}
+        />
+      </Box>
+      <CardList itens={positions} />
     </Box>
-    <CardList itens={positions} />
-  </Box>
-);
+  );
+}

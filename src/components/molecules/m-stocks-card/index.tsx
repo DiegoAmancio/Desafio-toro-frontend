@@ -8,7 +8,7 @@ export interface IStocksCard {
   amount: number;
   currentPrice: number;
 }
-export const StocksCard = ({ symbol, amount, currentPrice }: IStocksCard) => {
+export function StocksCard({ symbol, amount, currentPrice }: IStocksCard) {
   return (
     <Card sx={{ width: '100%' }}>
       <CardContent>
@@ -23,4 +23,4 @@ export const StocksCard = ({ symbol, amount, currentPrice }: IStocksCard) => {
       </CardContent>
     </Card>
   );
-};
+}
