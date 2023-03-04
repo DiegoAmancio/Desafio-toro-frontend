@@ -2,16 +2,18 @@ import { TitleValueCard } from '@/components/atoms/a-title-value-card';
 import { IStocksCard } from '@/components/molecules/m-stocks-card';
 import { CardList } from '@/components/organisms/o-cards-list';
 import { formatValue } from '@/utils/coins';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 export function CarteiraTemplate({
   checkingAccountAmount,
   consolidated,
   positions,
+  topFiveStocks,
 }: {
   checkingAccountAmount: number;
   consolidated: number;
   positions: IStocksCard[];
+  topFiveStocks: IStocksCard[];
 }) {
   return (
     <Box
@@ -21,6 +23,8 @@ export function CarteiraTemplate({
       padding="2rem 1rem"
       minHeight="100vh"
     >
+      <Typography>Olá {localStorage.getItem('BK_NAME')}</Typography>
+
       <Box
         display="flex"
         width="100%"
@@ -38,7 +42,15 @@ export function CarteiraTemplate({
           value={formatValue(consolidated)}
         />
       </Box>
+      <Typography marginY="1rem" fontWeight="bold">
+        Seus ativos
+      </Typography>
       <CardList itens={positions} />
+
+      <Typography marginY="1rem" fontWeight="bold">
+        Ativos mais negocidos
+      </Typography>
+      <CardList itens={topFiveStocks} />
     </Box>
   );
 }

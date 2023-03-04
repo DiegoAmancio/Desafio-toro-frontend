@@ -5,7 +5,7 @@ import Card from '@mui/material/Card';
 
 export interface IStocksCard {
   symbol: string;
-  amount: number;
+  amount?: number;
   currentPrice: number;
 }
 export function StocksCard({ symbol, amount, currentPrice }: IStocksCard) {
@@ -14,7 +14,9 @@ export function StocksCard({ symbol, amount, currentPrice }: IStocksCard) {
       <CardContent>
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Typography>{symbol}</Typography>
-          <TitleValueCard title="Quantidade" value={amount} />
+          {amount !== null && amount !== undefined && (
+            <TitleValueCard title="Quantidade" value={amount} />
+          )}
           <TitleValueCard
             title="Valor individual"
             value={formatValue(currentPrice)}

@@ -2,22 +2,27 @@ import { IStocksCard } from '@/components/molecules/m-stocks-card';
 import { CarteiraTemplate } from '@/components/templates/t-carteira';
 import Router from 'next/router';
 import { useEffect, useState } from 'react';
-import { getAccountPositions } from '../api/account.api';
+import { getAccountPositions, getTopFiveStocks } from '../api/account.api';
 
 export default function Index() {
   const [checkingAccountAmount, setCheckingAccountAmount] = useState(0);
   const [positions, setPositions] = useState<IStocksCard[]>([]);
+  const [topFiveStocks, setTopFiveStocks] = useState<IStocksCard[]>([]);
   const [consolidated, setConsolidated] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
 
   const fetchData = async () => {
-    const res = await getAccountPositions(
-      localStorage.getItem('tokenTop') || '',
+    const token = localStorage.getItem('tokenTop') || '';
+
+    Promise.all([getAccountPositions(token), getTopFiveStocks(token)]).then(
+      ([accountPositions, topFive]) => {
+        setTopFiveStocks([...topFive]);
+        setCheckingAccountAmount(accountPositions.checkingAccountAmount);
+        setConsolidated(accountPositions.consolidated);
+        setPositions([...accountPositions.positions]);
+        setIsLoaded(true);
+      },
     );
-    setCheckingAccountAmount(res.checkingAccountAmount);
-    setConsolidated(res.consolidated);
-    setPositions([...res.positions]);
-    setIsLoaded(true);
   };
 
   useEffect(() => {
@@ -36,6 +41,7 @@ export default function Index() {
         checkingAccountAmount={checkingAccountAmount}
         consolidated={consolidated}
         positions={positions}
+        topFiveStocks={topFiveStocks}
       />
     )
   );
