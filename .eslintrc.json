@@ -45,9 +45,10 @@
         "endOfLine": "auto"
       }
     ],
+    "import/no-extraneous-dependencies": "off",
     "quotes": ["error", "single", { "avoidEscape": true }],
     "@typescript-eslint/no-unused-vars": "error",
-    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-explicit-any": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [
       1,
@@ -55,6 +56,8 @@
         "extensions": [".ts", ".tsx", ".js", ".jsx"]
       }
     ],
+    "camelcase": "off",
+    "no-alert": "off",
     "react/jsx-props-no-spreading": "off",
     "import/extensions": [
       "error",
