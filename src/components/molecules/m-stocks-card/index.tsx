@@ -40,7 +40,6 @@ export function StocksCard({
           )}
 
           <OrderPopup
-            checkingAccountAmount={0}
             open={openButton}
             stock={stock}
             handleClose={handleClose}

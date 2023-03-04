@@ -1,3 +1,4 @@
+import { formatValue } from '@/utils/coins';
 import { Typography, Box, Dialog, DialogTitle, TextField } from '@mui/material';
 
 import React, { useState } from 'react';
@@ -9,12 +10,10 @@ export interface IStocksCard {
 }
 export function OrderPopup({
   open,
-  checkingAccountAmount,
   stock,
   handleClose,
 }: {
   open: boolean;
-  checkingAccountAmount: number;
   stock: IStocksCard;
   handleClose: () => void;
 }) {
@@ -35,8 +34,8 @@ export function OrderPopup({
       >
         <DialogTitle>Fazer Pedido</DialogTitle>
         <Typography>{stock.symbol}</Typography>
-        <Typography>Saldo Atual</Typography>
-        <Typography>{checkingAccountAmount}</Typography>
+        <Typography>Valor individual</Typography>
+        <Typography>{formatValue(stock.currentPrice)}</Typography>
         <TextField
           label="Quantidade"
           value={amount}
