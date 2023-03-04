@@ -31,7 +31,7 @@ export function CarteiraTemplate({
         maxWidth="450px"
         padding="0rem 1rem"
         justifyContent="space-between"
-        marginBottom={5}
+        height="100%"
       >
         <TitleValueCard
           title="Saldo"

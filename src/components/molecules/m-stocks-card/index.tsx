@@ -26,7 +26,11 @@ export function StocksCard({
   return (
     <Card sx={{ width: '100%' }}>
       <CardContent>
-        <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Box
+          display="grid"
+          gridTemplateColumns="repeat(auto-fit, minmax(30px,33%))"
+          alignItems="center"
+        >
           <Typography>{symbol}</Typography>
           {amount !== null && amount !== undefined && (
             <TitleValueCard title="Quantidade" value={amount} />
