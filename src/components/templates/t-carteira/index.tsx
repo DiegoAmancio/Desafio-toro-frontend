@@ -50,7 +50,7 @@ export function CarteiraTemplate({
       <Typography marginY="1rem" fontWeight="bold">
         Ativos mais negocidos
       </Typography>
-      <CardList itens={topFiveStocks} />
+      <CardList itens={topFiveStocks} showBuyButton />
     </Box>
   );
 }
