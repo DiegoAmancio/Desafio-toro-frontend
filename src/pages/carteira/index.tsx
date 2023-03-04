@@ -1,26 +1,37 @@
-import { IStocksCard } from '@/components/molecules/m-stocks-card';
-import { CarteiraTemplate } from '@/components/templates/t-carteira';
+import { useEffect } from 'react';
 import Router from 'next/router';
-import { useEffect, useState } from 'react';
+import { CarteiraTemplate } from '@/components/templates/t-carteira';
+import { IRootState } from '@/store/reducers';
+import { useDispatch, useSelector } from 'react-redux';
+import { LOADING_UPDATE, WALLET_UPDATE } from '@/store/actions';
 import { getAccountPositions, getTopFiveStocks } from '../api/account.api';
 
 export default function Index() {
-  const [checkingAccountAmount, setCheckingAccountAmount] = useState(0);
-  const [positions, setPositions] = useState<IStocksCard[]>([]);
-  const [topFiveStocks, setTopFiveStocks] = useState<IStocksCard[]>([]);
-  const [consolidated, setConsolidated] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const { open } = useSelector((state: IRootState) => state.loading);
+
+  const { checkingAccountAmount, positions, topFiveStocks, consolidated } =
+    useSelector((state: IRootState) => state.wallet);
+
+  const dispatch = useDispatch();
 
   const fetchData = async () => {
     const token = localStorage.getItem('tokenTop') || '';
 
     Promise.all([getAccountPositions(token), getTopFiveStocks(token)]).then(
       ([accountPositions, topFive]) => {
-        setTopFiveStocks([...topFive]);
-        setCheckingAccountAmount(accountPositions.checkingAccountAmount);
-        setConsolidated(accountPositions.consolidated);
-        setPositions([...accountPositions.positions]);
-        setIsLoaded(true);
+        dispatch({
+          type: WALLET_UPDATE,
+          payload: {
+            ...accountPositions,
+            topFiveStocks: topFive,
+          },
+        });
+        dispatch({
+          type: LOADING_UPDATE,
+          payload: {
+            open: true,
+          },
+        });
       },
     );
   };
@@ -36,7 +47,7 @@ export default function Index() {
   }, []);
 
   return (
-    isLoaded && (
+    open && (
       <CarteiraTemplate
         checkingAccountAmount={checkingAccountAmount}
         consolidated={consolidated}

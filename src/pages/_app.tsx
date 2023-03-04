@@ -1,11 +1,21 @@
+import { wrapper } from '@/store';
 import '@/styles/globals.css';
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import type { AppProps } from 'next/app';
+import { Provider } from 'react-redux';
 
-export default function App({ Component, pageProps }: AppProps) {
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { AppProps } from 'next/dist/shared/lib/router/router';
+import { MuiSnackBar } from '@/components/atoms/a-snackbar';
+
+function App({ Component, ...rest }: AppProps) {
+  const { store, props } = wrapper.useWrappedStore(rest);
+  const { pageProps } = props;
   return (
-    <GoogleOAuthProvider clientId={process.env.OAUTH_GOOGLE_ID || ''}>
-      <Component {...pageProps} />
-    </GoogleOAuthProvider>
+    <Provider store={store}>
+      <GoogleOAuthProvider clientId={process.env.OAUTH_GOOGLE_ID || ''}>
+        <MuiSnackBar />
+        <Component {...pageProps} />
+      </GoogleOAuthProvider>
+    </Provider>
   );
 }
+export default App;
