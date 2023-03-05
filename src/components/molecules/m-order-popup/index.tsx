@@ -50,11 +50,10 @@ export function OrderPopup({
         );
       },
       data => {
-        console.log(data);
         dispatch(
           snackbarUpdate({
             open: true,
-            message: data.message,
+            message: data.response.data.message,
             severity: 'error',
           }),
         );
