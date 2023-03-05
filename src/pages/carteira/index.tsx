@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Router from 'next/router';
 import { CarteiraTemplate } from '@/components/templates/t-carteira';
 import { IRootState } from '@/store/reducers';
@@ -8,7 +8,7 @@ import { getAccountPositions, getTopFiveStocks } from '../api/account.api';
 
 export default function Index() {
   const { open } = useSelector((state: IRootState) => state.loading);
-
+  const [openDepositPopup, setOpenDepositPopup] = useState(false);
   const { checkingAccountAmount, positions, topFiveStocks, consolidated } =
     useSelector((state: IRootState) => state.wallet);
 
@@ -46,6 +46,13 @@ export default function Index() {
     }
   }, []);
 
+  const handleClosePopup = () => {
+    setOpenDepositPopup(false);
+  };
+  const handleOpenPopup = () => {
+    setOpenDepositPopup(true);
+  };
+
   return (
     open && (
       <CarteiraTemplate
@@ -53,6 +60,7 @@ export default function Index() {
         consolidated={consolidated}
         positions={positions}
         topFiveStocks={topFiveStocks}
+        depositPopup={{ openDepositPopup, handleClosePopup, handleOpenPopup }}
       />
     )
   );

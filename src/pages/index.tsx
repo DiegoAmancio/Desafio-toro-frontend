@@ -1,4 +1,4 @@
-import { GoogleButton } from '@/components/atoms/a-google-button';
+import { GoogleButton } from '@/components/organisms/o-google-button';
 import { Box } from '@mui/material';
 
 export default function Index() {

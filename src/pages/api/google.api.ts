@@ -2,7 +2,11 @@ import axios from 'axios';
 
 const baseUrl = process.env.BACKEND_URL;
 
-export const login = (token: string) =>
+export const login = (token: string, cpf?: string) =>
   axios
-    .get(`${baseUrl}auth/login`, { headers: { token } })
+    .post(
+      `${baseUrl}auth/login`,
+      { cpf },
+      { headers: { authorization: token } },
+    )
     .then(({ data }) => data);

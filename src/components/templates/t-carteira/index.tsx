@@ -1,19 +1,26 @@
 import { TitleValueCard } from '@/components/atoms/a-title-value-card';
+import { DepositPopup } from '@/components/molecules/m-deposit-popup';
 import { IStocksCard } from '@/components/molecules/m-stocks-card';
 import { CardList } from '@/components/organisms/o-cards-list';
 import { formatValue } from '@/utils/coins';
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 
 export function CarteiraTemplate({
   checkingAccountAmount,
   consolidated,
   positions,
   topFiveStocks,
+  depositPopup,
 }: {
   checkingAccountAmount: number;
   consolidated: number;
   positions: IStocksCard[];
   topFiveStocks: IStocksCard[];
+  depositPopup: {
+    openDepositPopup: boolean;
+    handleClosePopup: () => void;
+    handleOpenPopup: () => void;
+  };
 }) {
   return (
     <Box
@@ -42,6 +49,11 @@ export function CarteiraTemplate({
           value={formatValue(consolidated)}
         />
       </Box>
+      <Button onClick={depositPopup.handleOpenPopup}>Depositar</Button>
+      <DepositPopup
+        open={depositPopup.openDepositPopup}
+        handleClose={depositPopup.handleClosePopup}
+      />
       <Typography marginY="1rem" fontWeight="bold">
         Seus ativos
       </Typography>

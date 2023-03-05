@@ -33,3 +33,21 @@ export const orderStocks = (token: string, order: OrderPositionDTO) =>
       },
     })
     .then(({ data }) => data);
+
+export const isRegistered = (token: string) =>
+  axios
+    .get(`${baseUrl}auth/isregistered`, {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then(({ data }) => data);
+
+export const deposit = (token: string, payload: any) =>
+  axios
+    .post(`${baseUrl}sbp/events`, payload, {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then(({ data }) => data);
