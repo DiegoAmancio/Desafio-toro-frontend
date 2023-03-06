@@ -14,9 +14,9 @@ export function DepositPopup({
   handleClose: () => void;
 }) {
   const [origin, setOrigin] = useState({
-    bank: '033',
-    branch: '03312',
-    cpf: '45358996060',
+    bank: '',
+    branch: '',
+    cpf: '',
   });
 
   const [amount, setAmout] = useState(0);
